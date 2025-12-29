@@ -15,18 +15,17 @@ export type PresetType =
   | 'rotate'
   | 'swing';
 
-export type AnimatedGroupProps = {
-  children: ReactNode;
-  className?: string;
-  variants?: {
-    container?: Variants;
-    item?: Variants;
+  export type AnimatedGroupProps = {
+    children: ReactNode;
+    className?: string;
+    variants?: {
+      container?: Variants;
+      item?: Variants;
+    };
+    preset?: PresetType;
+    as?: React.ElementType;
+    asChild?: React.ElementType;
   };
-  preset?: PresetType;
-  as?: keyof JSX.IntrinsicElements | React.ComponentType<any>;
-  asChild?: keyof JSX.IntrinsicElements | React.ComponentType<any>;
-};
-
 
 const defaultContainerVariants: Variants = {
   visible: {
