@@ -102,13 +102,13 @@ export default function ContentSection() {
                         },
                     },
                 }}
-                className="mask-b-from-35% mask-b-to-90% absolute inset-0 top-26 lg:top-12">
+                className="absolute inset-0 top-16 lg:top-6">
 
                 {/* Conteúdo */}
                 <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 md:px-20 pt-5 pb-24 overflow-auto min-h-full">
                     <div className="@container mx-auto max-w-5xl pt-12 text-center">
-                        <h2 className="text-balance text-4xl font-semibold lg:text-5xl">Calculo de Porcentagem</h2>
-                        <p className="mt-4">Insira os valores da financeira e de tabela para obter a porcentagem por item de juros</p>
+                        <h2 className="text-balance text-4xl font-semibold lg:text-5xl">Cálculo de Percentual</h2>
+                        <p className="mt-4">Informe os valores totais de tabela e da financeira para calcular o percentual de juros por item.</p>
                     </div>
 
                     <div className="relative z-10 mx-auto max-w-6xl px-4 sm:px-6 md:px-20 pt-6 pb-24">

@@ -21,8 +21,8 @@ export default function Footer() {
         <span className="absolute bottom-2 md:bottom-4 right-4 md:right-6 text-xs md:text-sm text-white/80">
           © {new Date().getFullYear()} — Criado por{" "}
           <a
-            href="https://www.linkedin.com/in/guilherme-machancoses-772986233/"
-            target="_blank"
+            // href="https://www.linkedin.com/in/guilherme-machancoses-772986233/"
+            // target="_blank"
             rel="noopener noreferrer"
             className="font-semibold text-white hover:underline"
           >
