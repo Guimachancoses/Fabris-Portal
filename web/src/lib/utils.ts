@@ -4,6 +4,7 @@ import dayjs from "dayjs"
 import isSameOrBefore from "dayjs/plugin/isSameOrBefore"
 import utc from "dayjs/plugin/utc"
 import timezone from "dayjs/plugin/timezone"
+import Decimal from "decimal.js"
 
 dayjs.extend(isSameOrBefore)
 dayjs.extend(utc)
@@ -202,4 +203,52 @@ export function calculateMonthlyProjection({
   const projecao = faturamentoAtual + mediaDiaria * diasRestantes
 
   return Math.round(projecao)
+}
+
+export function calcularDesconto(
+  tabela2: number,
+  entrada: number,
+  porcentagemDesconto: number,
+  porcentagemDesconto2: number,
+  porcentagemDescontoParcelado: number
+) {
+  const tabela = new Decimal(tabela2)
+  const entradaDecimal = new Decimal(entrada)
+
+  const d1 = new Decimal(porcentagemDesconto).div(100)
+  const dX = new Decimal(porcentagemDesconto2).div(100)
+  const d2 = new Decimal(porcentagemDescontoParcelado).div(100)
+
+  if (tabela.lte(0)) return 0
+
+  const fator1 = new Decimal(1).minus(d1)
+  const fatorX = new Decimal(1).minus(dX)
+  const fator2 = new Decimal(1).minus(d2)
+
+  if (fator1.lte(0) || fator2.lte(0)) return 0
+
+  // ✅ SEMPRE compor corretamente os descontos da entrada
+  const fatorEntrada = fator1.times(fatorX)
+
+  if (fatorEntrada.lte(0)) return 0
+
+  // 1️⃣ descobrir X corretamente
+  const x = entradaDecimal.div(fatorEntrada)
+
+  // 2️⃣ diferença inicial
+  const diff1 = tabela.minus(x)
+
+  // 3️⃣ aplicar desconto parcelado
+  const diff2 = diff1.times(fator2)
+
+  // 4️⃣ somar com entrada
+  const soma = diff2.plus(entradaDecimal)
+
+  // 5️⃣ diferença final
+  const final = tabela.minus(soma)
+
+  // 6️⃣ percentual final
+  const resultado = final.div(tabela).times(100)
+
+  return Number(resultado.toDecimalPlaces(2, Decimal.ROUND_HALF_UP))
 }
