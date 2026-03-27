@@ -15,17 +15,17 @@ import { formatCurrencyGR } from "../lib/utils"
 
 
 const data = [
-    { month: "Jan", meta: 100000, vendas: 82000 },
-    { month: "Fev", meta: 100000, vendas: 91000 },
-    { month: "Mar", meta: 100000, vendas: 105000 },
-    { month: "Abr", meta: 120000, vendas: 112000 },
-    { month: "Mai", meta: 120000, vendas: 126000 },
-    { month: "Jun", meta: 130000, vendas: 118000 },
-  ].map((item) => ({
-    ...item,
-    diferenca: item.vendas - item.meta,
-  }))
-  
+  { month: "Jan", meta: 100000, vendas: 82000 },
+  { month: "Fev", meta: 100000, vendas: 91000 },
+  { month: "Mar", meta: 100000, vendas: 105000 },
+  { month: "Abr", meta: 120000, vendas: 112000 },
+  { month: "Mai", meta: 120000, vendas: 126000 },
+  { month: "Jun", meta: 130000, vendas: 118000 },
+].map((item) => ({
+  ...item,
+  diferenca: item.vendas - item.meta,
+}))
+
 
 export function MetaProjectionChart() {
   return (
@@ -86,14 +86,29 @@ export function MetaProjectionChart() {
             />
 
             <Tooltip
-              formatter={(value: number, name: string) => {
+              formatter={(value, name) => {
                 const labelMap: Record<string, string> = {
                   meta: "Meta",
                   vendas: "Vendas",
                   diferenca: "Diferença",
                 }
 
-                return [formatCurrencyGR(value), labelMap[name]]
+                let numericValue = 0
+
+                if (typeof value === "number") {
+                  numericValue = value
+                } else if (typeof value === "string") {
+                  numericValue = Number(value)
+                } else if (Array.isArray(value)) {
+                  numericValue = Number(value[0])
+                }
+
+                const safeName = name ?? ""
+
+                return [
+                  formatCurrencyGR(numericValue),
+                  labelMap[safeName] ?? safeName,
+                ]
               }}
               contentStyle={{
                 borderRadius: 8,
