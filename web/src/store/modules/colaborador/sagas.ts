@@ -524,7 +524,7 @@ export function* checkUser() {
 
 /* =========================
    Root Saga
-========================= */
+========================== */
 
 export default all([
   takeLatest(types.ALL_COLABORADORES, allColaboradores),
