@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react"
 import { Moon, Sun } from "lucide-react"
 import { flushSync } from "react-dom"
+import { Button } from "@/src/components/ui/button"
 
 import { cn } from "@/src/lib/utils"
 
@@ -71,14 +72,16 @@ export const AnimatedThemeToggler = ({
   }, [isDark, duration])
 
   return (
-    <button
+    <Button
       ref={buttonRef}
       onClick={toggleTheme}
-      className={cn(className)}
+      variant="ghost"
+      size="icon"
+      className={cn("size-7", className)}
       {...props}
     >
       {isDark ? <Sun /> : <Moon />}
       <span className="sr-only">Toggle theme</span>
-    </button>
+    </Button>
   )
 }

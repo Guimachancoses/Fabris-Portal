@@ -1,8 +1,8 @@
 import Image from "next/image";
 
-export default function Footer() {
+export default function FooterSection() {
   return (
-    <footer className="fixed bottom-0 left-0 z-0 w-full h-[120px] md:h-[200px] overflow-hidden">
+    <footer className="fixed bottom-0 left-0 z-0 w-full h-[100px] md:h-[165px] overflow-hidden sm:h-[10px]">
       <div className="relative h-full w-full rounded-t-3xl overflow-hidden shadow-2xl">
         {/* Imagem de fundo */}
         <Image
@@ -18,11 +18,18 @@ export default function Footer() {
         <div className="absolute inset-0 bg-gradient-to-b from-black/70 to-black/85" />
 
         {/* Texto no canto direito */}
-        <span className="absolute bottom-2 md:bottom-4 right-4 md:right-6 text-xs md:text-sm text-white/80">
+        <span
+          className="
+            absolute bottom-2
+            left-1/2 -translate-x-1/2
+            text-xs text-white/80
+            md:bottom-4
+            md:left-auto md:right-6 md:translate-x-2
+            md:text-sm
+          "
+        >
           © {new Date().getFullYear()} — Criado por{" "}
           <a
-            // href="https://www.linkedin.com/in/guilherme-machancoses-772986233/"
-            // target="_blank"
             rel="noopener noreferrer"
             className="font-semibold text-white hover:underline"
           >
@@ -30,6 +37,7 @@ export default function Footer() {
           </a>{" "}
           🪓
         </span>
+
       </div>
     </footer>
   );

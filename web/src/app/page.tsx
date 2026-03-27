@@ -1,7 +1,7 @@
 import { DockComponent } from "../components/dock-component";
 import Header from "../components/header";
 import Footer from "../components/footer";
-import ContentSection from "../components/content-1";
+import ContentSection from "../components/pages/calculadoraPage/content-1";
 
 export default function Home() {
   return (
