@@ -49,6 +49,7 @@ export default function ContentSection() {
     const [tempDiscount2, setTempDiscount2] = useState(discountPercent2) // edição no popover
     const [tempDiscountParcelado, setTempDiscountParcelado] = useState(discountPercentParcelado) // edição no popover
     const [openPopover, setOpenPopover] = useState(false)
+    const [valorSoma, setValorSoma] = useState(0)
 
     useEffect(() => {
         const timer = setTimeout(() => {
@@ -96,17 +97,29 @@ export default function ContentSection() {
         const porcentagemDesconto2 = parseFloat(discountPercent2.replace(",", "."))
         const porcentagemDescontoParcelado = parseFloat(discountPercentParcelado.replace(",", "."))
 
-        const resultado = calcularDesconto(tabela, entrada, porcentagemDesconto, porcentagemDesconto2, porcentagemDescontoParcelado)
+        const { percentual, soma } = calcularDesconto(
+            tabela,
+            entrada,
+            porcentagemDesconto,
+            porcentagemDesconto2,
+            porcentagemDescontoParcelado
+        )
 
+        // console.log("tabela: ", tabela)
+        // console.log("entrada: ", entrada)
+        // console.log("porcentagemDesconto: ", porcentagemDesconto)
+        // console.log("porcentagemDesconto2: ", porcentagemDesconto2)
+        // console.log("porcentagemDescontoParcelado: ", porcentagemDescontoParcelado)
+        // console.log("percentual: ", percentual)
+        // console.log("soma: ", soma)
 
-        console.log("tabela: ", tabela)
-        console.log("entrada: ", entrada)
-        console.log("porcentagemDesconto: ", porcentagemDesconto)
-        console.log("porcentagemDesconto2: ", porcentagemDesconto2)
-        console.log("porcentagemDescontoParcelado: ", porcentagemDescontoParcelado)
-        console.log("resultado: ", resultado)
         setValue(0)
-        setTimeout(() => setValue(resultado), 100)
+        setValorSoma(0)
+
+        setTimeout(() => {
+            setValue(percentual)
+            setValorSoma(soma)
+        }, 100)
     }
 
     return (
@@ -171,7 +184,7 @@ export default function ContentSection() {
                             ) : (
                                 <span>financeira</span>
                             )}
-                            {" "}para calcular o percentual de juros por item.</p>
+                            {" "}para calcular o percentual de desconto por item.</p>
                     </div>
 
                     <div className="relative z-10 mx-auto max-w-6xl px-4 sm:px-6 md:px-20 pt-6 pb-24">
@@ -183,10 +196,22 @@ export default function ContentSection() {
                                 <div className="relative z-10 p-4 sm:p-6">
                                     <Tabs defaultValue="juros" className="w-full">
 
-                                        {/* Tabs header */}
                                         <TabsList className="grid w-full grid-cols-2 mb-6">
-                                            <TabsTrigger value="juros" onClick={() => { formDesconto.reset(); setValue(0); }}>Financeira</TabsTrigger>
-                                            <TabsTrigger value="desconto" onClick={() => { formJuros.reset(); setValue(0); }}>Desconto à vista</TabsTrigger>
+                                            <TabsTrigger
+                                                value="juros"
+                                                onClick={() => { formDesconto.reset(); setValue(0); }}
+                                                className="data-[state=active]:bg-[#0B3B76] data-[state=active]:text-white"
+                                            >
+                                                Financeira
+                                            </TabsTrigger>
+
+                                            <TabsTrigger
+                                                value="desconto"
+                                                onClick={() => { formJuros.reset(); setValue(0); }}
+                                                className="data-[state=active]:bg-[#0B3B76] data-[state=active]:text-white"
+                                            >
+                                                Desconto na entrada
+                                            </TabsTrigger>
                                         </TabsList>
 
                                         {/* TAB 1 - JUROS */}
@@ -434,6 +459,15 @@ export default function ContentSection() {
                                     </CardHeader>
                                     <CardContent className="flex flex-col items-center justify-center gap-6">
                                         <CircularProgress value={value || 0} size={140} strokeWidth={12} />
+                                        {valorSoma > 0 && (
+                                            <span className="text-xs font-bold text-center">
+                                                Valor para fins de conferência Total da compra:{" "}
+                                                {valorSoma.toLocaleString("pt-BR", {
+                                                    style: "currency",
+                                                    currency: "BRL",
+                                                })}
+                                            </span>
+                                        )}
                                     </CardContent>
                                 </div>
                             </Card>

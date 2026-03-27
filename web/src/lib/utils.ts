@@ -219,36 +219,35 @@ export function calcularDesconto(
   const dX = new Decimal(porcentagemDesconto2).div(100)
   const d2 = new Decimal(porcentagemDescontoParcelado).div(100)
 
-  if (tabela.lte(0)) return 0
+  if (tabela.lte(0)) {
+    return { percentual: 0, soma: 0 }
+  }
 
   const fator1 = new Decimal(1).minus(d1)
   const fatorX = new Decimal(1).minus(dX)
   const fator2 = new Decimal(1).minus(d2)
 
-  if (fator1.lte(0) || fator2.lte(0)) return 0
+  if (fator1.lte(0) || fator2.lte(0)) {
+    return { percentual: 0, soma: 0 }
+  }
 
-  // ✅ SEMPRE compor corretamente os descontos da entrada
   const fatorEntrada = fator1.times(fatorX)
 
-  if (fatorEntrada.lte(0)) return 0
+  if (fatorEntrada.lte(0)) {
+    return { percentual: 0, soma: 0 }
+  }
 
-  // 1️⃣ descobrir X corretamente
   const x = entradaDecimal.div(fatorEntrada)
-
-  // 2️⃣ diferença inicial
   const diff1 = tabela.minus(x)
-
-  // 3️⃣ aplicar desconto parcelado
   const diff2 = diff1.times(fator2)
 
-  // 4️⃣ somar com entrada
   const soma = diff2.plus(entradaDecimal)
 
-  // 5️⃣ diferença final
   const final = tabela.minus(soma)
-
-  // 6️⃣ percentual final
   const resultado = final.div(tabela).times(100)
 
-  return Number(resultado.toDecimalPlaces(2, Decimal.ROUND_HALF_UP))
+  return {
+    percentual: Number(resultado.toDecimalPlaces(2, Decimal.ROUND_HALF_UP)),
+    soma: Number(soma.toDecimalPlaces(2, Decimal.ROUND_HALF_UP)),
+  }
 }
