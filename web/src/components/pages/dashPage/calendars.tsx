@@ -22,8 +22,9 @@ export function Calendars({
 }: {
   calendars: {
     id: string
-    label: string
-    icon: React.ElementType
+    name?: string | null
+    items?: string[] | null
+    icon?: React.ElementType
   }[]
 }) {
   return (
@@ -47,7 +48,7 @@ export function Calendars({
               <CollapsibleContent>
                 <SidebarGroupContent>
                   <SidebarMenu>
-                    {calendar.items.map((item, index) => (
+                    {calendar.items?.map((item, index) => (
                       <SidebarMenuItem key={item}>
                         <SidebarMenuButton>
                           <Link className="flex gap-4" href={item}>
