@@ -123,7 +123,7 @@ export function DockComponent() {
 
   return (
     <>
-      {/* LOGO FIXA — MOBILE (some no scroll) */}
+      {/* LOGO FIXA — MOBILE (centralizada) */}
       <div
         className={cn(
           "fixed top-0 inset-x-0 z-40 flex justify-center pt-[60px] sm:hidden transition-all duration-300 ease-out",
@@ -135,13 +135,23 @@ export function DockComponent() {
         <Logo className="w-[160px] h-auto" />
       </div>
 
+      {/* LOGO FIXA — DESKTOP (à esquerda) */}
+      <div
+        className={cn(
+          "hidden sm:flex fixed top-0 inset-x-0 z-40 justify-start sm:pt-[50px] p-6 transition-all duration-300 ease-out",
+          hideLogo
+            ? "opacity-0 -translate-y-6 pointer-events-none"
+            : "opacity-100 translate-y-0"
+        )}
+      >
+        <Logo className="w-[180px] h-auto" />
+      </div>
+
 
       {/* FOOTER FIXO NO PÉ */}
       <footer className="absolute inset-x-0 bottom-0 pb-16 flex justify-center">
 
         <div className="relative flex flex-col items-center">
-          {/* LOGO — DESKTOP */}
-          <Logo className="hidden sm:block z-10 sm:w-[180px] sm:h-[60px] mb-6" />
 
           {/* DOCK — fora do fluxo */}
           <div className="fixed bottom-8 sm:bottom-4 left-1/2 -translate-x-1/2 z-50">

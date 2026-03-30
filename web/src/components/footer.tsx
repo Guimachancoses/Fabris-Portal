@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export default function FooterSection() {
   return (
-    <footer className="fixed bottom-0 left-0 z-0 w-full h-[100px] md:h-[165px] overflow-hidden sm:h-[10px]">
+    <footer className="fixed bottom-0 left-0 z-0 w-full h-[100px] md:h-[100px] overflow-hidden sm:h-[10px]">
       <div className="relative h-full w-full rounded-t-3xl overflow-hidden shadow-2xl">
         {/* Imagem de fundo */}
         <Image
