@@ -138,7 +138,7 @@ export function DockComponent() {
       {/* LOGO FIXA — DESKTOP (à esquerda) */}
       <div
         className={cn(
-          "hidden sm:flex fixed top-0 inset-x-0 z-40 justify-start sm:pt-[50px] p-6 transition-all duration-300 ease-out",
+          "hidden sm:flex fixed top-0 inset-x-0 z-40 justify-end sm:pt-[50px] pr-50 transition-all duration-300 ease-out",
           hideLogo
             ? "opacity-0 -translate-y-6 pointer-events-none"
             : "opacity-100 translate-y-0"
